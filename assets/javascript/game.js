@@ -2,39 +2,39 @@ $(document).ready(function() {
 
 var trivia = [
 		question01=	{
-			question: "question 1?",
-			answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
-			correctAnswer: 'a',
+			question: "question 1",
+			answers: ["answer 1-1", "answer 2-1", "answer 3-1", "answer 4-1"],
+			correctAnswer: [0],
 		},
 		question02= {
-			question: "question 2?",
-			answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
-			correctAnswer: 'b',
+			question: "question 2",
+			answers: ["answer 1-2", "answer 2", "answer 3", "answer 4"],
+			correctAnswer: [1],
 		},
 		question03= {
-			question: "question 3?",
-			answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
-			correctAnswer: 'c',
+			question: "question 3",
+			answers: ["answer 1-3", "answer 2", "answer 3", "answer 4"],
+			correctAnswer: [2],
 		},
 		question04= {
-			question: "question 4?",
-			answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
-			correctAnswer: 'd',
+			question: "question 4",
+			answers: ["answer 1-4", "answer 2", "answer 3", "answer 4"],
+			correctAnswer: [3],
 		},
 		question05= {
-			question: "question 5?",
-			answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
-			correctAnswer: 'd',
+			question: "question 5",
+			answers: ["answer 1-5", "answer 2", "answer 3", "answer 4"],
+			correctAnswer: [0],
 		},
 		question06= {
-			question: "question 6?",
-			answers: ["answer 1", "answer 2", "answer 3", "answer 4"],
-			correctAnswer: 'd',
+			question: "question 6",
+			answers: ["answer 1-6", "answer 2", "answer 3", "answer 4"],
+			correctAnswer: [1],
 		}];
 	var timer = 30;
 	var intervalId;
 	var correctGuesses=0;
-	var totalQuestions = 3;
+	var totalQuestions = 6;
 	var userAnswers=[];
 	var answerKey = [];
 	var clockRunning = false;
@@ -134,24 +134,45 @@ var trivia = [
 		$('#game-timer').html('Time Remaining: ' + timer + ' Seconds');
 		// $("#trivia-container").empty();
 	}
-// generateRandomQuestions();
+generateRandomQuestions();
 
-// 	function generateRandomQuestions(){
-// 		for(var j = 0; j<totalQuestions; j++){
-// 			randomQuestion = trivia[Math.floor(Math.random()*totalQuestions)];
-// 			console.log(randomQuestion);
-// 			randomQuestions.push(randomQuestion)
-// 			answerKey.push(randomQuestion.correctAnswer);
-// 			console.log("answer key is " + answerKey);
-// 			console.log("rand questions are " + randomQuestions);
-// 		}
-// 		$('#question-one').html(randomQuestions[0].question);
-// 		$('#question-two').html(randomQuestions[1].question);
-// 		$('#question-three').html(randomQuestions[2].question);
-// 		$('#radio-buttons').html(createRadioElement());
-// 		$('#radio-buttons').append(randomQuestions[0].answers[0]);
-// 	}
+	function generateRandomQuestions(){
+		for(var j = 0; j<totalQuestions; j++){
+			randomQuestion = trivia[Math.floor(Math.random()*totalQuestions)];
+			console.log(randomQuestion);
 
+			var $triviaDiv = $('<div>');
+			var $formDiv = $('<p>');
+			$triviaDiv.attr('class','trivia-question');
+			var $question = randomQuestion.question;
+			var $answer = randomQuestion.answers;
+			var $correctanswer = randomQuestion.correctAnswer;
+			console.log($correctanswer);
+			var $questionDiv = $('<h2>').append($question);
+			var $answerDiv = $('<p>').append($answer);
+			$triviaDiv.append($questionDiv);
+			$triviaDiv.append($answer);
+			answerKey.push($correctanswer);
+			console.log(answerKey);
+			//appends the trivia question to the page
+			$('#trivia').append($triviaDiv);
+
+		for(var k=0; k<trivia[j].answers.length; k++){
+			var $inputDiv =$('input');
+			var $labelDiv =$('label');
+			$inputDiv.attr('type','radio');
+			$inputDiv.attr('id' + 'q' + j);
+			$inputDiv.attr('value', k);
+			$inputDiv.attr('for', 'q' + j + 'radio' + k);
+			$labelDiv.innerHTML =trivia[j].answers[k];
+			console.log("label div is " + $labelDiv);
+
+			$formDiv.append($inputDiv);
+			$formDiv.append($labelDiv);
+		}
+
+		}
+	}
 
 
 	// function createRadioElement(name, checked) {
